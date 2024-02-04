@@ -3,7 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { JobsModule } from './jobs/jobs.module';
+import { JobsModule } from './routes/jobs/jobs.module';
+import { UsersModule } from './routes/users/users.module';
+import { AuthModule } from './routes/auth/auth.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: '.env' }),
@@ -13,6 +15,8 @@ import { JobsModule } from './jobs/jobs.module';
       autoSchemaFile: 'src/schema.gql',
     }),
     JobsModule,
+    UsersModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

@@ -18,18 +18,48 @@ type Jobs {
   skills: [String!]!
 }
 
+type Users {
+  _id: String!
+  name: String!
+  lastName: String!
+  email: String!
+  company: String!
+  createdAt: String!
+}
+
+type Auth {
+  _id: String!
+  name: String!
+  lastName: String!
+  email: String!
+  password: String!
+  confirmPassword: String!
+  createdAt: String!
+}
+
 type Query {
   getAllJobs: [Jobs!]!
   getById(id: ID!): Jobs!
+  getUser: [Users!]!
+  getUserById(id: String!): Users!
 }
 
 type Mutation {
-  create(input: JobsInput!): Jobs!
+  createJobs(input: JobsDto!): Jobs!
+  createUser(data: AuthDto!): Auth!
 }
 
-input JobsInput {
+input JobsDto {
   companyName: String!
   name: String!
   position: String!
   salary: Float!
+}
+
+input AuthDto {
+  name: String!
+  lastName: String!
+  email: String!
+  password: String!
+  confirmPassword: String!
 }

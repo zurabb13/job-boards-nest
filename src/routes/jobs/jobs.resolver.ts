@@ -1,8 +1,7 @@
 import { Query, Args, Resolver, ID, Mutation } from '@nestjs/graphql';
 import { Jobs } from 'src/models/jobs.model';
 import { JobsService } from './jobs.service';
-import { of } from 'rxjs';
-import { JobsInput } from './jobs.input';
+import { JobsDto } from '../../dto/jobs.dto';
 
 @Resolver(() => Jobs)
 export class JobsResolver {
@@ -18,7 +17,7 @@ export class JobsResolver {
     return this.service.getById(id);
   }
   @Mutation(() => Jobs)
-  async create(@Args('input') input: JobsInput): Promise<Jobs> {
+  async createJobs(@Args('input') input: JobsDto): Promise<Jobs> {
     return this.service.create(input);
   }
 }
