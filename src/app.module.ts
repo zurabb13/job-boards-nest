@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -15,7 +15,6 @@ import { CorsMiddleware } from './cors/cors.middleware';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'src/schema.gql',
-      csrfPrevention: true,
     }),
     JobsModule,
     UsersModule,
@@ -24,4 +23,8 @@ import { CorsMiddleware } from './cors/cors.middleware';
   controllers: [],
   providers: [CorsMiddleware],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(CorsMiddleware).forRoutes('*');
+  }
+}
