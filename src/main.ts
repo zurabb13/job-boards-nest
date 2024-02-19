@@ -1,10 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { json } from 'express';
+
 // import * as csurf from 'csurf';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // app.use(csurf());
+  app.use(json());
   app.enableCors({
     origin: true,
     credentials: true,
